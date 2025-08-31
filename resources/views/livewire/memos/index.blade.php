@@ -23,3 +23,5 @@ $create = function() {
     <button wire:click="create">登録する</button>
 
 </div>
+
+
