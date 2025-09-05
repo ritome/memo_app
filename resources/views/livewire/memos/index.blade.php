@@ -7,7 +7,17 @@ state(['memos' => fn() => Memo::all()]);
 
 $create = function() {
     return redirect()->route('memos.create');
-}
+};
+
+// 優先度を文字列に変換する関数
+$getPriorityText = function($priority) {
+    return match($priority) {
+        1 => '低',
+        2 => '中',
+        3 => '高',
+        default => '不明',
+    };
+};
 ?>
 
 <div>
@@ -15,7 +25,8 @@ $create = function() {
     <ul>
         @foreach ($memos as $memo)
             <li>
-                <a href="{{ route('memos.show', $memo) }}">{{ $memo->title }}</a>
+                <a href="{{ route('memos.show', $memo) }}">{{ $memo->id }}</a>
+                {{ $memo->title }}[{{ $this->getPriorityText($memo->priority) }}]
             </li>
         @endforeach
     </ul>
