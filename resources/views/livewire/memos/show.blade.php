@@ -28,12 +28,22 @@ $getPriorityText = function($priority) {
     };
 };
 
+//優先度に応じたCSSクラスを取得する関数
+$getPriorityClass = function($priority) {
+    return match($priority) {
+        1 => 'priority-low',
+        2 => 'priority-medium',
+        3 => 'priority-high',
+        default => '',
+    };
+};
+
 ?>
 
 <div>
     <a href="{{ route('memos.index') }}">戻る</a>
     <h1>{{ $memo->title }}</h1>
-    <p><strong>優先度:</strong> {{ $this->getPriorityText($memo->priority) }}</p>
+    <p><strong>優先度:</strong> <span class="{{ $this->getPriorityClass($memo->priority) }}">{{ $this->getPriorityText($memo->priority) }}</span></p>
     <p>{!! nl2br(e($memo->body)) !!}</p>
 
     <button wire:click="edit">編集する</button>
